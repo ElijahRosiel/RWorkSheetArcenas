@@ -82,4 +82,59 @@ for (i in third_sequence) {
 }
 max_data_points_until_10
 
+# Print Vector with the integers between 1-100 that are not divisible by 3,5,7
+wantowanhandred <- seq(100)
+Filter(function(i) { all(i %% c(3,5,7) != 0) }, seq(100))
+print(paste("Numbers in 1-100 that is not divisible by 3,5,7 are: ", wantowanhandred))
+
+# 10.	Generate a sequence backwards of the integers from 1 to 100.
+fourth_sequence <- seq(100,1)
+print(paste("Integers from 100 to 1:", fourth_sequence))
+
+# 11 Questions:
+
+# List all the natural numbers below 25 that are multiples of 3 or 5
+multiples <- seq(1, 24)  # Generate a sequence of numbers from 1 to 24
+multiples <- multiples[multiples %% 3 == 0 | multiples %% 5 == 0]  # Filter the numbers that are multiples of 3 or 5
+print(multiples)
+
+# Find the sum of these multiples
+sum_of_multiples <- sum(multiples)
+print(sum_of_multiples)
+
+# Determine the number of data points between 10 and 11
+data_foints <- seq(10, 11)
+num_data_foints <- length(data_foints)
+print(num_data_foints)
+
+
+# Statement with braces
+x <- 0
+{
+  x <- x + 5
+}
+print(x)
+
+
+# Accessing individual elements of a vector
+score <- c(72, 86, 92, 63, 88, 89, 91, 92, 75, 75, 77)
+x2 <- score[2]
+x3 <- score[3]
+print(x2)
+print(x3)
+
+
+# Changing NA to 999 in a vector
+a <- c(1, 2, NA, 4, NA, 6, 7)
+a[is.na(a)] <- 999
+print(a)
+
+
+#
+name <- readline(prompt="Input your name: ") 
+age <- readline(prompt="Input your age: ") 
+print(paste("My name is",name, "and I am",age ,"years old.")) 
+print(R.version.string)
+
+
 
