@@ -1,0 +1,14 @@
+```{r}
+UpperCase <- LETTERS
+LowerCase <- letters
+
+first_11 <- UpperCase[1:11]
+first_11
+
+First_11 <- LowerCase[1:11]
+First_11
+
+OddLetters <-LETTERS [1:length (LETTERS) %% 2 !== 0]
+OddLetters
+
+```
