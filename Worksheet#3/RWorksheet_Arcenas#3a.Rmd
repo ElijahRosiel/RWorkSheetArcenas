@@ -8,7 +8,7 @@ first_11
 First_11 <- LowerCase[1:11]
 First_11
 
-OddLetters <-LETTERS [1:length (LETTERS) %% 2 !== 0]
+OddLetters <-LETTERS [1:length (LETTERS) %% 2 != 0]
 OddLetters
 
 ```
