@@ -1,27 +1,111 @@
-shoe_size <- c(6.5,9.0,8.5,8.5,10.5,7.0,9.5,9.0,13.0,7.5,10.5,8.5,12.0,10.5,13.0,11.5,8.5,5.0,10.0,6.5,7.5,8.5,10.5,11.0,9.0,13.0)
+# 1 
+shoeSize <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5, 13.0, 11.5, 8.5,5.0,10.0,6.5,7.5,8.5,10.5,8.5,10.5,11.0,9.0,13.0)
 
-height <- c(66.0,68.0,64.5,65.0,70.0,64.0,70.0,71.0,72.0,64.0,74.5,67.0,71.0,71.0,77.0,72.0,59.0,62.0,72.0,66.0,64.0,67.0,72.0,69.0,72.0,70.0,69.0,70.0)
+height <- c(66.0, 68.0, 64.5, 65.0, 70.0,64.0,70.0,71.0,72.0,64.0,74.5,67.0,71.0,71.0,77.0,72.0,59.0,62.0,72.0,66.0,64.0,67.0,73.0,69.0,72.0,70.0,69.0,70.0)
 
-gender <- c("F","F","F","F","M","F","F","F","M","F","M","F","M","M","M","M","F","F","M","F","F","M","M","F","M","M","M","M")
+gender <- c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M" , "F", "M", "M", "M", "M", "F", "F", "M", "F", "F", "M", "M", "F", "M", "M", "M", "M")
 
-df <- data.frame(shoe_size, height, gender)
+householdData <- data.frame(
+  ShoeSize = shoeSize,
+  Height = height,
+  Gender = gender
+)
 
-summary(df)
+householdData
 
-males <- subset(df, gender == "M")
-females <- subset(df, gender == "F")
 
+# 1.a 
+# In the data, there are three variables which are the shoe size, height, and gender. There are 28 observations
+
+
+# 1.b
+males <- householdData[householdData$Gender == "M",]
 males
+
+females <- householdData[householdData$Gender == "F",]
 females
 
-mean_shoe_size <- mean(shoe_size)
-mean_height <- mean(height)
+# 1.c
+meanOfShoeSize <- mean(householdData$ShoeSize)
+meanOfShoeSize
 
-mean_shoe_size
-mean_height
+meanOfHeight <- mean(householdData$Height)
+meanOfHeight
 
-plot(shoe_size, height, xlab = "Shoe Size", ylab = "Height", main = "Relationship between Shoe Size and Height")
-correlation <- cor(shoesize, height)
+# 1.d
+# The relationship of the two is that the shoe size is directly proportional to the height. If the height is small, the shoe size is also small.
 
-correlation
+# 2
+months_vector <- c("March","April","January","November","January","September","October","September","November","August","January","November","November","February","May","August","July","December","August","August","September","November","February","April")
+
+months_vector
+
+factor_months_vector <- factor(months_vector)
+
+factor_months_vector
+
+# 3
+summary(months_vector)
+summary(factor_months_vector)
+
+# In the summary of months_vector, it shows the number of observations, class, and mode of the vector. 
+
+# In the summary of factor_months_vector, it shows the frequency of each months.
+
+# Both are useful in different cases where the no. of observations, class, mode, or the frequency is needed.
+
+# 4
+factor_data <- c("East", "West", "North")
+factor_frequency <- c(1,4,3)
+
+new_order_data <- factor(factor_data,levels = c("East","West","North"))
+
+print(new_order_data)
+
+# 5
+imported_table <- read.table(file =  "/cloud/project/worksheet#4/import_march.csv", header = TRUE, sep = ",")
+
+View(imported_table)
+
+# 6
+randomNum <- readline(prompt = "Enter number from 1 to 50: ")
+
+randomNum <- as.numeric(randomNum)
+
+paste("The number you have chosen is", randomNum)
+
+if (randomNum > 50) {
+  paste("The number selected is beyond the range of 1 to 50")
+} else if (randomNum == 20) {
+  paste("TRUE")
+} else {
+  paste(randomNum)
+}
+
+#7
+MinBills <- function(price) {
+Bills <- price %% 50
+paste("The Minimum number of bills is: ", Bills)
+}
+
+MinBills(90)
+
+#8 
+Names_DF<- c("Annie", "Thea", "Steve", "Hanna")
+Grade1 <- c(85,65,75,95)
+Grade2 <- c(65,75,55,75)
+Grade3 <- c(85,90,80,100)
+Grade4 <- c(100,90,85,90)
+
+Math <- data.frame(
+Name = Names_DF,
+Grade1 = Grade1,
+Grade2 = Grade2,
+Grade3 = Grade3,
+Grade4 = Grade4
+)
+
+Math
+
+
 
