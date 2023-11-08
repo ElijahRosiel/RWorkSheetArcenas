@@ -2,7 +2,9 @@
 title: "RWorkSheet_Arcebas#4A"
 author: "Edora Frances Anne V Arcenas"
 date: "2023-11-08"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
