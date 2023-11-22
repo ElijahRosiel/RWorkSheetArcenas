@@ -2,7 +2,9 @@
 title: "RWorksheet_Arcenas#4b"
 author: "Edora Frances Anne V Arcenas"
 date: "2023-11-08"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -57,24 +59,39 @@ repeat {
 ```{r}
 ImportedDataSet <- read.csv(file =  "/cloud/project/worksheet#4/ShoeSizeHeightGender.csv", header = TRUE, sep = ",")
 
-View(ImportedDataSet)
-
 head(ImportedDataSet, 6)
 
-
-Fsubset <- ImportedDataSet(ImportedDataSet, gender == "F")
-View(Fsubset)
-
-MSubset <- ImportedDataSet(ImportedDataSet, Gender == "M")
-View(MSubset)
-
-
-gendCount <- c(male = MSubset, female = Fsubset)
-
-barplot(gendCount, main = "Numbers of Male and Female",
-         xlab = "Gender", ylab = "Numbers", col = c("purple", "magenta"),
-         legend.text = TRUE)
-legend("topright", legend = names(gendCount), fill = c("purple", "magenta"))
-
-
 ```
+
+```{r}
+data("iris")
+iris
+
+str(iris)
+
+MeanPetalObject <-
+  mean(iris$Sepal.Length)
+  mean(iris$Sepal.Width)
+  mean(iris$Petal.Length)
+  mean(iris$Petal.Width)
+  
+  IrisSpecies <- table(iris$Species)
+pie(IrisSpecies, labels = names(IrisSpecies), main = "Iris Species Distribution", col = rainbow(length(IrisSpecies)))
+legend("topright", legend = names(IrisSpecies), fill = rainbow(length(IrisSpecies)))
+
+setosa <- subset(iris, Species == "setosa")
+versicolor <- subset(iris, Species == "versicolor")
+virginica <- subset(iris, Species == "virginica")
+
+tail(setosa, 6)
+tail(versicolor, 6)
+tail(virginica, 6)
+
+iris$Species <- as.factor(iris$Species)
+
+plot(iris$Sepal.Length, iris$Sepal.Width, col = iris$Species, pch = 19,
+     xlab = "Sepal Length", ylab = "Sepal Width",
+     main = "Iris Dataset", sub = "Sepal width and length")
+legend("topright", legend = levels(iris$Species), col = 1:length(levels(iris$Species)), pch = 19)
+```
+
