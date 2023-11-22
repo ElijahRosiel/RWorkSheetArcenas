@@ -1,0 +1,54 @@
+---
+title: "RWorksheet_Arcenas#4c"
+author: "Edora Frances Anne V Arcenas"
+date: "2023-11-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+MPGfile <- read.table(file =  "/cloud/project/worksheet#4/mpg.csv", header = TRUE, sep = ",")
+
+Head(MPGfile)
+
+Categor <- str(MPGfile)
+
+summary(MPGfile)
+
+print("The variables that is categorical in the MPG dataset are the following:
+      
+      Model, Year, Trans, Drv, Fl, and Class")
+
+print("The variables that is continuous in the MPG data set are the following:
+      
+      Disp, Cyl, Cty, and Hwy")
+
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
