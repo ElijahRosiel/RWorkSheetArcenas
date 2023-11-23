@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 MPGfile <- read.table(file =  "/cloud/project/worksheet#4/mpg.csv", header = TRUE, sep = ",")
 
-Head(MPGfile)
+View(MPGfile)
 
 Categor <- str(MPGfile)
 
@@ -20,7 +20,7 @@ summary(MPGfile)
 
 print("The variables that is categorical in the MPG dataset are the following:
       
-      Model, Year, Trans, Drv, Fl, and Class")
+      Manufacturer, Model, Year, Trans, Drv, Fl, and Class")
 
 print("The variables that is continuous in the MPG data set are the following:
       
@@ -30,11 +30,40 @@ print("The variables that is continuous in the MPG data set are the following:
 ```
 
 ```{r}
+library(dplyr)
 
+ManuMost_models <- mpg %>%
+  group_by(manufacturer) %>%
+  summarize(Numo = n_distinct(model)) %>%
+  filter(Numo == max(Numo))
+
+MoMo_variations <- mpg %>%
+  group_by(model) %>%
+  summarize(Nuva = n_distinct(manufacturer)) %>%
+  filter(Nuva == max(Nuva))
+
+print(ManuMost_models)
+print(MoMo_variations)
+
+plot(ManuMost_models$manufacturer, MoMo_variations$ManuMost_models,
+     main = "Manufacturer and Unique Models",
+     xlab = "Manufacturer",
+     ylab = "Number of Unique Models",
+     col = "blue",
+     las = 2,
+     ylim = c(0,300))
 ```
 
 ```{r}
+IndiNako <- MPGfile %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model)) %>%
+  arrange(desc(unique_models))
 
+print(IndiNako)
+
+plot(MPGfile$manufacturer, MPGfile$IndiNako
+     xlab= "")
 ```
 
 ```{r}
