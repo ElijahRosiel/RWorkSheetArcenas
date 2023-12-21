@@ -1,14 +1,108 @@
+---
+title: "RWorksheeet_Arcenas#3a"
+author: "Edora Frances Anne V Arcenas"
+date: "2023-12-21"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 ```{r}
-UpperCase <- LETTERS
-LowerCase <- letters
+LETTERS
 
-first_11 <- UpperCase[1:11]
-first_11
+first11 <- LETTERS[c(1:11)]
+first11
 
-First_11 <- LowerCase[1:11]
-First_11
+lenLet <- length(LETTERS)
+oddNumb <- LETTERS[seq(lenLet) %% 2 == 1]
+oddNumb
 
-OddLetters <-LETTERS [1:length (LETTERS) %% 2 != 0]
-OddLetters
+vowels <- LETTERS[c(1,5,9,15,21)]
+vowels
 
+letters
+
+last_5 <- letters[c(22:26)]
+last_5
+
+fifteen_to_24 <- letters[c(15:24)]
+fifteen_to_24
+
+city <- c("Tuguegarao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+city
+
+temperature <- c(42, 39, 34, 34, 30, 27)
+temperature
+
+city_temp <- data.frame(city,temperature)
+
+city_temp
+
+names(city_temp) <- c("City", "Temperature")
+city_temp
+
+
+str(city_temp)
+# the code displayed the structure of the city_temp object
+# it displayed the contents ofthe data frame
+# it displayed the summary of the data frame
+
+two_rows <- city_temp[3:4,]
+
+highest <- city_temp[which.max(city_temp$Temperature),]
+highest
+
+
+lowest <- city_temp[which.min(city_temp$Temperature),]
+lowest
+
+matrx <- matrix(c(1:8, 11:14), nrow = 3, ncol = 4)
+matrx
+
+mulMatr <- matrx * 2
+mulMatr
+
+rowtwo <- mulMatr[2,]
+rowtwo
+
+two_Cols_And_Rows <- mulMatr[c(1,2), c(3,4)]
+two_Cols_And_Rows
+
+two_Cols_One_Row <- mulMatr[3, c(2,3)]
+two_Cols_One_Row
+
+four_Col <- mulMatr[, 4]
+four_Col
+
+dimnames(mulMatr) <- list(c("isa", "dalawa", "tatlo"), c("uno", "dos", "tres", "quatro"))
+
+mulMatr
+
+
+
+matrx
+dim(matrx) <- c(6,2)
+matrx
+
+
+
+values <- c(1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1)
+rep_values <- rep(values, each = 2)
+
+arr <- array(rep_values, dim = c(2,4,3))
+arr
+
+dimnames(arr) <- list(
+  letters[1:2], # row names
+  LETTERS[1:4], # col names
+  c("1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array") # dim names
+)
+
+arr
+
+```
 ```
