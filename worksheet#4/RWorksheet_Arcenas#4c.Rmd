@@ -2,7 +2,9 @@
 title: "RWorksheet_Arcenas#4c"
 author: "Edora Frances Anne V Arcenas"
 date: "2023-11-22"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -10,74 +12,285 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-MPGfile <- read.table(file =  "/cloud/project/worksheet#4/mpg.csv", header = TRUE, sep = ",")
+mpg_file <- read.csv("mpg.csv")
 
-View(MPGfile)
-
-Categor <- str(MPGfile)
-
-summary(MPGfile)
-
-print("The variables that is categorical in the MPG dataset are the following:
-      
-      Manufacturer, Model, Year, Trans, Drv, Fl, and Class")
-
+Categor <- str(mpg_file)
 print("The variables that is continuous in the MPG data set are the following:
       
       Disp, Cyl, Cty, and Hwy")
 
+summary(mpg_file)
+```
+
+```{r}
+
+manufacturer_asTable <- table(mpg_file$manufacturer)
+manufacturer_most_models <- names(manufacturer_asTable)[which.max(manufacturer_asTable)]
+
+manufacturer_most_models
+print("Dodge manufacturer has the most models")
+
+
+model_asTable <- table(mpg_file$model)
+model_most_vars <- names(model_asTable)[which.max(model_asTable)]
+
+model_most_vars
+print("caravan 2wd has the most variations")
 
 ```
 
 ```{r}
 library(dplyr)
 
-ManuMost_models <- mpg %>%
-  group_by(manufacturer) %>%
-  summarize(Numo = n_distinct(model)) %>%
-  filter(Numo == max(Numo))
+manufacturers_models <- data.frame(Manufacturer = mpg_file$manufacturer, Model = mpg_file$model)
+manufacturers_models
 
-MoMo_variations <- mpg %>%
+unique_mods <- unique(manufacturers_models)
+unique_mods
+
+unique_mods_factor <- factoredManufacturer <- as.factor(unique_mods$Manufacturer)
+
+```
+
+```{r}
+
+library(ggplot2)
+library(dplyr)
+
+uniqueModMan <- plot(as.factor(factoredManufacturer),
+                 main = "Unique Models of Manufacturers",
+                 xlab = "Manufacturer", 
+                 ylab = "Number of Unique Models",
+                 cex.names = 0.8, las = 2)
+
+
+unique_count <- unique_mods %>% 
+  count(unique_mods$Manufacturer)
+unique_count
+
+ggplot(unique_count, aes(x = `unique_mods$Manufacturer`, y = n)) +
+geom_bar(stat = "identity", fill = "steelblue") + 
+  labs(x = "Manufacturer", y = "Number of Unique Models")
+
+```
+
+```{r}
+ggplot(mpg_file, aes(model, manufacturer)) + geom_point() 
+
+print("It plots the mpg dataset with models on the x-axis and manufacturers on the y-axis, where each point represents a model and its manufacturer.")
+```
+
+```{r}
+
+print("It helps you see the number of models each manufacturer has. You can make it more informative by using colors to show different categories and adding labels with the cty variable to each point.")
+
+```
+
+```{r}
+top20 <- head(mpg_file,20)
+
+top20Plot <- ggplot(top20, aes(x = model, y = year)) + geom_point() + labs(x = "Model", y = "Year") 
+top20Plot
+```
+
+```{r}
+
+library(dplyr)
+
+model_car_count <- mpg_file %>% 
   group_by(model) %>%
-  summarize(Nuva = n_distinct(manufacturer)) %>%
-  filter(Nuva == max(Nuva))
+  summarize(number_of_cars = n())
 
-print(ManuMost_models)
-print(MoMo_variations)
-
-plot(ManuMost_models$manufacturer, MoMo_variations$ManuMost_models,
-     main = "Manufacturer and Unique Models",
-     xlab = "Manufacturer",
-     ylab = "Number of Unique Models",
-     col = "blue",
-     las = 2,
-     ylim = c(0,300))
-```
-
-```{r}
-IndiNako <- MPGfile %>%
-  group_by(manufacturer) %>%
-  summarise(unique_models = n_distinct(model)) %>%
-  arrange(desc(unique_models))
-
-print(IndiNako)
-
-plot(MPGfile$manufacturer, MPGfile$IndiNako
-     xlab= "")
-```
-
-```{r}
+model_car_count
 
 ```
 
 ```{r}
 
+obs_20 <- head(model_car_count, 20)
+
+top_20 <- ggplot(obs_20, aes(x = model, y = number_of_cars, fill = model)) + geom_bar(stat = "identity") + labs(title = "Number of Cars per Model", x = "Model" , y = "Number of cars")
+
+top_20
+
 ```
 
 ```{r}
 
+flipped_top_20 <- ggplot(obs_20, aes(x = model, y = number_of_cars, fill = model)) + geom_bar(stat = "identity") + labs(title = "Number of Cars per Model", x = "Model" , y = "Number of cars") + coord_flip()
+
+flipped_top_20
 ```
 
 ```{r}
 
+cyl_displ_plot <- ggplot(mpg_file, aes(x = cyl, y = displ, color = displ)) +
+  geom_point() +
+  labs(title = "Relationship between No. of Cylinders and Engine Displacement",
+       x = "Number of Cylinders",
+       y = "Engine Displacement")
+
+cyl_displ_plot
+
+```
+
+
+```{r}
+
+print("It makes a scatter plot to show how the number of cylinders and engine size are connected. Each point's color tells you the engine size. When there are more cylinders, the engine size usually gets bigger, suggesting that more cylinders often mean a larger engine.")
+
+```
+
+```{r}
+
+displ_hwy_plot <- ggplot(mpg_file, aes(x = displ, y = hwy, color = cty)) +
+  geom_point() +
+  labs(title = "Relationship between Engine Displacement and Highway MPG",
+       x = "Engine Displacement",
+       y = "Highway MPG")
+
+displ_hwy_plot
+
+print("It's a graph with engine size on one side and highway miles per gallon on the other. Each dot's color shows city fuel economy. Looking at this, we can see how engine size, highway mileage, and city fuel economy are connected. It helps us understand how efficient vehicles are with different engine sizes.")
+```
+
+```{r}
+library(readr)
+traffic <- read.csv("traffic.csv")
+
+num_obs <- nrow(traffic)
+num_obs
+
+num_vars <- ncol(traffic)
+num_vars
+
+vars <- colnames(traffic)
+vars
+
+```
+
+```{r}
+
+junctions_subset_1 <- subset(traffic, Junction == 1)
+
+junctions_subset_2 <- subset(traffic, Junction == 2)
+
+junctions_subset_3 <- subset(traffic, Junction == 3)
+
+junctions_subset_4 <- subset(traffic, Junction == 4)
+
+```
+
+
+```{r}
+
+junction_1_plot <- ggplot(junctions_subset_1, aes(x = as.Date(junctions_subset_1$DateTime), y = Vehicles)) + 
+  geom_line() +
+  scale_x_date(date_labels = "%b-%Y") + theme(legend.position = "none") +
+  labs(title = "Junction 1", x = "Time", y = "Number of Vehicles")
+
+junction_1_plot
+
+junction_2_plot <- ggplot(junctions_subset_2, aes(x = as.Date(junctions_subset_2$DateTime), y = Vehicles)) + 
+  geom_line() +
+  scale_x_date(date_labels = "%b-%Y") + theme(legend.position = "none") +
+  labs(title = "Junction 2", x = "Time", y = "Number of Vehicles")
+
+junction_2_plot
+
+junction_3_plot <- ggplot(junctions_subset_3, aes(x = as.Date(junctions_subset_3$DateTime), y = Vehicles)) + 
+  geom_line() +
+  scale_x_date(date_labels = "%b-%Y") + theme(legend.position = "none") +
+  labs(title = "Junction 3", x = "Time", y = "Number of Vehicles")
+
+junction_3_plot
+
+junction_4_plot <- ggplot(junctions_subset_4, aes(x = as.Date(junctions_subset_4$DateTime), y = Vehicles)) + 
+  geom_line() +
+  scale_x_date(date_labels = "%b-%Y") + theme(legend.position = "none") +
+  labs(title = "Junction 4", x = "Time", y = "Number of Vehicles")
+
+junction_4_plot
+
+```
+
+```{r}
+
+library(readxl)
+
+alexa_data <- read_excel("/cloud/project/worksheet#4/alexa_file.xlsx")
+
+num_obs <- nrow(alexa_data)
+num_obs
+
+num_cols <- ncol(alexa_data)
+num_cols
+
+
+```
+
+
+```{r}
+Var_counts <- alexa_data %>%
+  count(variation)
+
+Var_counts
+```
+
+```{r}
+
+Alexa_plot <- ggplot(alexa_data, aes(x = variation)) +
+  geom_bar(fill = "red") +
+  labs(title = "Variations",
+       x = "Variation",
+       y = "Count")
+
+Alexa_plot
+
+print("The chart displays different variations and how many times each one occurs. Each bar stands for a particular variation, and its height indicates how many times that variation appears.")
+```
+
+```{r}
+
+library(dplyr)
+
+alexa_data$date <- as.Date(alexa_data$date)
+
+alexa_data$month <- format(alexa_data$date, "%m")
+
+countMonth <- alexa_data %>%
+  count(month)
+countMonth
+
+mon_revCount <- table(countMonth)
+mon_revCount
+
+Alexa_Line <- ggplot(countMonth, aes(x = month, y = n, group = 1)) +
+  geom_line(color = "red") +
+  labs(title = "Number of Verified Reviews Over Time",
+       x = "Date",
+       y = "Number of Verified Reviews")
+
+Alexa_Line
+```
+
+```{r}
+
+variation_ratings <- alexa_data %>%
+  group_by(variation) %>%
+  summarise(avg_rating = mean(rating))
+
+variation_ratings
+
+highest_ratings <- variation_ratings %>%
+  filter(avg_rating == max(avg_rating))
+
+highest_ratings 
+
+
+ggplot(variation_ratings, aes(x = variation, y = avg_rating)) +
+  geom_bar(stat = "identity", fill = "red") +
+  labs(title = "Average Ratings by Variation",
+       x = "Variation",
+       y = "Average Rating")
 ```
