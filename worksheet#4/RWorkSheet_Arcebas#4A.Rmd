@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```
+```{r}
 # 1
 shoeSize <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5, 13.0, 11.5, 8.5,5.0,10.0,6.5,7.5,8.5,10.5,8.5,10.5,11.0,9.0,13.0)
 
@@ -50,7 +50,7 @@ meanOfHeight
 # The relationship of the two is that the shoe size is directly proportional to the height. If the height is small, the shoe size is also small.
 ```
 
-```
+```{r}
 # 2
 months_vector <- c("March","April","January","November","January","September","October","September","November","August","January","November","November","February","May","August","July","December","August","August","September","November","February","April")
 
@@ -62,7 +62,7 @@ factor_months_vector
 ```
 
 ```
-# 3
+```{r}
 summary(months_vector)
 summary(factor_months_vector)
 
@@ -73,7 +73,7 @@ summary(factor_months_vector)
 # Both are useful in different cases where the no. of observations, class, mode, or the frequency is needed.
 ```
 
-```
+```{r}
 # 4
 factor_data <- c("East", "West", "North")
 factor_frequency <- c(1,4,3)
@@ -83,14 +83,14 @@ new_order_data <- factor(factor_data,levels = c("East","West","North"))
 print(new_order_data)
 ```
 
-```
+```{r}
 # 5
 imported_table <- read.table(file =  "/cloud/project/worksheet#4/import_march.csv", header = TRUE, sep = ",")
 
 View(imported_table)
 ```
 
-```
+```{r}
 # 6
 randomNum <- readline(prompt = "Enter number from 1 to 50: ")
 
@@ -118,7 +118,7 @@ paste("The Minimum number of bills is: ", Bills)
 MinBills(90)
 ```
 
-```
+```{r}
 #8
 names_df <- c("Annie", "Thea", "Steve", "Hanna")
 grade1 <- c(85,65,75,95)
